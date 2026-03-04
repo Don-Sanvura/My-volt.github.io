@@ -3,271 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Volt | Smart Scheduling</title>
-    <style>
-        :root {
-            --primary: #00d2ff;
-            --secondary: #3a7bd5;
-            --dark: #1a1a2e;
-            --light: #ffffff;
-            --glass: rgba(255, 255, 255, 0.1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', -apple-system, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--light);
-        }
-
-        .app-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2.5rem;
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            width: 350px;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 2rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-        }
-
-        header p {
-            font-size: 0.9rem;
-            opacity: 0.7;
-            margin-bottom: 2rem;
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        #dateInput {
-            width: 100%;
-            padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: white;
-            font-size: 1rem;
-            cursor: pointer;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        #dateInput:hover, #dateInput:focus {
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .calendar {
-            display: none;
-            background: #252545;
-            border-radius: 16px;
-            padding: 15px;
-            position: absolute;
-            top: 70px;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .cal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .cal-header button {
-            background: none;
-            border: none;
-            color: var(--primary);
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 5px 10px;
-        }
-
-        .days-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-        }
-
-        .day-name {
-            font-size: 0.7rem;
-            font-weight: bold;
-            opacity: 0.5;
-            margin-bottom: 5px;
-        }
-
-        .day {
-            padding: 8px;
-            font-size: 0.9rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .day:hover:not(.empty) {
-            background: var(--primary);
-            color: var(--dark);
-        }
-
-        .today {
-            border: 1px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .selected {
-            background: var(--secondary) !important;
-            color: white;
-        }
-
-        .empty { cursor: default; }
-
-        .btn-confirm {
-            margin-top: 20px;
-            width: 100%;
-            padding: 12px;
-            border-radius: 12px;
-            border: none;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .btn-confirm:active { transform: scale(0.98); }
-    </style>
+    <title>My Volt · library vault</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts (can also be kept in HTML) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="container">
+    <header>
+        <h1>my volt</h1>
+        <div class="subhead">⚡ store · review · archive — your personal library vault</div>
+    </header>
 
-    <div class="app-card">
-        <header>
-            <h1>My Volt ⚡</h1>
-            <p>Powering your schedule with precision.</p>
-        </header>
-
+    <!-- ADD new item panel -->
+    <section class="add-panel">
+        <h2>➕ add to vault</h2>
         <div class="input-group">
-            <input type="text" id="dateInput" placeholder="Tap to select date" readonly>
-            
-            <div class="calendar" id="calendar">
-                <div class="cal-header">
-                    <button id="prevMonth">❮</button>
-                    <span id="monthDisplay">Month Year</span>
-                    <button id="nextMonth">❯</button>
-                </div>
-                <div class="days-grid" id="daysGrid">
-                    </div>
+            <div class="field">
+                <label>title</label>
+                <input type="text" id="titleInput" placeholder="e.g. Dune, Project Hail Mary..." autocomplete="off">
             </div>
+            <div class="field">
+                <label>description / notes</label>
+                <textarea id="descInput" placeholder="short review, impressions..." rows="2"></textarea>
+            </div>
+            <button class="btn-primary" id="addBtn">➕ add entry</button>
         </div>
+    </section>
 
-        <button class="btn-confirm" onclick="alert('Date Saved to My Volt!')">Confirm Date</button>
+    <!-- Library toolbar -->
+    <div class="toolbar">
+        <div class="stats" id="statsDisplay">📚 0 items · 0 reviewed</div>
+        <div class="action-buttons">
+            <button class="btn-secondary" id="exportBtn" title="save library as JSON file">💾 save library</button>
+            <button class="btn-secondary" id="importBtn">📂 load library</button>
+            <input type="file" id="fileImport" accept="application/json">
+            <button class="btn-secondary" id="clearBtn" style="border-color:#b45a5a;">🗑️ clear all</button>
+        </div>
     </div>
 
-    <script>
-        const dateInput = document.getElementById('dateInput');
-        const calendar = document.getElementById('calendar');
-        const daysGrid = document.getElementById('daysGrid');
-        const monthDisplay = document.getElementById('monthDisplay');
-        const prevBtn = document.getElementById('prevMonth');
-        const nextBtn = document.getElementById('nextMonth');
+    <!-- Library grid display -->
+    <section class="library-list">
+        <div id="libraryContainer" class="library-grid">
+            <!-- cards will be injected here -->
+        </div>
+    </section>
 
-        let displayDate = new Date();
-        let selectedDate = null;
+    <footer>
+        <span>⚡ my volt — your library, always with you</span>
+    </footer>
+</div>
 
-        function initCalendar() {
-            render();
-            
-            dateInput.addEventListener('click', () => {
-                calendar.style.display = calendar.style.display === 'block' ? 'none' : 'block';
-            });
-
-            prevBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                displayDate.setMonth(displayDate.getMonth() - 1);
-                render();
-            });
-
-            nextBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                displayDate.setMonth(displayDate.getMonth() + 1);
-                render();
-            });
-
-            // Close calendar when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.input-group')) calendar.style.display = 'none';
-            });
-        }
-
-        function render() {
-            daysGrid.innerHTML = '';
-            const year = displayDate.getFullYear();
-            const month = displayDate.getMonth();
-            
-            monthDisplay.innerText = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(displayDate);
-
-            // Add Weekday Headers
-            ['S','M','T','W','T','F','S'].forEach(d => {
-                daysGrid.innerHTML += `<div class="day-name">${d}</div>`;
-            });
-
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-            for (let i = 0; i < firstDay; i++) {
-                daysGrid.innerHTML += `<div class="day empty"></div>`;
-            }
-
-            for (let i = 1; i <= daysInMonth; i++) {
-                const dayDiv = document.createElement('div');
-                dayDiv.classList.add('day');
-                if (i === new Date().getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) {
-                    dayDiv.classList.add('today');
-                }
-                dayDiv.innerText = i;
-                dayDiv.onclick = (e) => {
-                    e.stopPropagation();
-                    selectDate(year, month, i);
-                };
-                daysGrid.appendChild(dayDiv);
-            }
-        }
-
-        function selectDate(y, m, d) {
-            selectedDate = new Date(y, m, d);
-            dateInput.value = selectedDate.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'long', day: 'numeric' });
-            calendar.style.display = 'none';
-        }
-
-        initCalendar();
-    </script>
+<script src="script.js"></script>
 </body>
 </html>
