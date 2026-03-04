@@ -1,0 +1,19 @@
+.my-volt-app h1 {
+  color: #4a90e2; /* Electric Blue */
+  margin-bottom: 5px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background: #f4f7f9;
+  border-radius: 12px;
+  padding: 0 10px;
+}
+
+.icon {
+  font-size: 1.2rem;
+  margin-right: 8px;
+}
